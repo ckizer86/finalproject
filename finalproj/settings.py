@@ -27,8 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
+STRIPE_ENDPOINT_SECRET = 'whsec_IRr3ISJpalFvBzlSsjOETIXdMhA8O9yC'
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51IwWtiLmI7LukTtsDxJCBaECnivUZL8LrVfuJAhh9QkKW6GpMYz7uqbhNY0VJknauFDcGCMy22QY2lsd64aJJNvV00oa16q6Op'
+STRIPE_SECRET_KEY = 'sk_test_51IwWtiLmI7LukTtszDMdsRvcsbOWrnQMwbKNORV8LGv8x3nRfazy6heGmA3rxpPAGNGIbuaoPHTM1PdNtInDmQ6S00kmgV9bKx'
 
 INSTALLED_APPS = [
     'store_app',
