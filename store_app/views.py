@@ -119,3 +119,27 @@ def addcart(request):
 def cart(request):
 
     return render(request, "cart.html")
+
+def likeditems(request):
+
+    return render(request, "like.html")
+
+def dashboard(request):
+
+    return render(request, "dashboard.html")
+
+def accountinfo(request):
+
+    return render(request, "accountinfo.html")
+
+def accountupdate(request):
+
+    return redirect('/account')
+
+def recentorders(request):
+
+    return render(request, "recentorders.html")
+
+def vieworder(request, id):
+
+    return render(request, "vieworder.html")

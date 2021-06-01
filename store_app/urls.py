@@ -17,4 +17,10 @@ urlpatterns = [
     path('success/', views.SuccessView),
     path('cancelled/', views.CancelledView),
     path('webhook/', views.stripe_webhook),
+    path('favorites', views.likeditems),
+    path('dashboard', views.dashboard),
+    path('dashboard/account', views.accountinfo),
+    path('accountudate', views.accountupdate),
+    path('dashboard/recent_orders', views.recentorders),
+    path('dashboard/order/<int:id>', views.vieworder),
 ]
