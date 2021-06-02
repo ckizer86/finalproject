@@ -143,3 +143,35 @@ def recentorders(request):
 def vieworder(request, id):
 
     return render(request, "vieworder.html")
+
+def admindash(request):
+
+    return render(request, "admindashboard.html")
+
+def adminneworders(request):
+
+    return render(request, "adminneworders.html")
+
+def adminpastorders(request):
+
+    return render(request, "adminpastorders.html")
+
+def adminvieworder(request, id):
+
+    return render(request, "adminvieworder.html")
+
+def updatetracking(request):
+
+    return redirect('/admin')
+
+def products(request):
+
+    return render(request, "products.html")
+
+def addprod(request):
+
+    return render(request, "addproduct.html")
+
+def addingprod(request):
+
+    return redirect('/admin')
