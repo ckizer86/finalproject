@@ -175,3 +175,11 @@ def addprod(request):
 def addingprod(request):
 
     return redirect('/admin')
+
+def storeinfo(request):
+
+    return render(request, "store.html")
+
+def editstore(request):
+
+    return redirect('/admin/store')
