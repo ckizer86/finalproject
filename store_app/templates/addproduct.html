@@ -26,13 +26,7 @@
         </div>
         <div class="row">
             <div class="col-2 sidebar">
-                <ul class="list-group cat-group">
-                    <li class="list-group-item">Category 1</li>
-                    <li class="list-group-item">Category 2</li>
-                    <li class="list-group-item">Category 3</li>
-                    <li class="list-group-item">Category 4</li>
-                    <li class="list-group-item">Category 5</li>
-                </ul>
+                {% include 'adminsidebar.html' %}
             </div>
             <div class="col-9 main">
                 <form action="/addingprod" method="post">
