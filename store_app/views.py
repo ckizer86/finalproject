@@ -2,10 +2,15 @@ from django.shortcuts import render, redirect
 from django.http.response import JsonResponse, HttpResponse
 from django.views.generic import FormView
 from django.urls import reverse
-from django.conf import settings # new
-from django.http.response import JsonResponse # new
-from django.views.decorators.csrf import csrf_exempt # new
+from django.conf import settings
+from django.http.response import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 import stripe
+from django.contrib import messages
+import bcrypt
+from time import gmtime, localtime, strftime
+from datetime import date, datetime
+from .models import *
 
 # payments/views.py
 
@@ -93,6 +98,18 @@ def login_page(request):
     return render(request, "login.html")
 
 def login(request):
+    if request.method == "POST":
+        email = request.POST['email']
+        
+        logged_user = User.objects.filter(email=email)
+        if logged_user:
+            logged_user = logged_user[0]
+            if bcrypt.checkpw(request.POST['pw'].encode(), logged_user.password.encode()):
+                request.session["user_id"] = logged_user.id
+                request.session["username"] = f"{logged_user.first_name} {logged_user.last_name}"
+                return redirect('/dashboard')
+
+
     
     return redirect('/login')
 
@@ -101,6 +118,25 @@ def register_page(request):
     return render(request, "register.html")
 
 def register(request):
+    if request.method == "POST":
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        password = bcrypt.hashpw(request.POST["pw"].encode(), bcrypt.gensalt()).decode()
+        dob = request.POST['dob']
+
+        user = User.objects.create(first_name=first_name, last_name=last_name, email=email, password=password, dob=dob)
+        request.session["user_id"] = user.id
+        request.session["username"] = f"{user.first_name} {user.last_name}"
+
+        address_1 = request.POST['address1']
+        address_2 = request.POST['address2']
+        city = request.POST['city']
+        state = request.POST['state']
+        zip = request.POST['zip']
+        
+        Address.objects.create(address_1=address_1, address_2=address_2, city=city, state=state, zip=zip, user=user)
+        return redirect('/dashboard')
 
     return redirect('/register')
 
@@ -125,6 +161,8 @@ def likeditems(request):
     return render(request, "like.html")
 
 def dashboard(request):
+    if "user_id" not in request.session:
+        return redirect ('/login')
 
     return render(request, "dashboard.html")
 
@@ -183,3 +221,7 @@ def storeinfo(request):
 def editstore(request):
 
     return redirect('/admin/store')
+
+def logout(request):
+    request.session.flush()
+    return redirect('/')

@@ -1,6 +1,10 @@
 from django.urls import path
 from . import views
 
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 
 urlpatterns = [
     path('', views.index),
@@ -33,4 +37,9 @@ urlpatterns = [
     path('addingprod', views.addingprod),
     path('admin/store', views.storeinfo),
     path('editstore', views.editstore),
+    path('logout', views.logout),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT)
