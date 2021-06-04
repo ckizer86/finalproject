@@ -91,8 +91,11 @@ def stripe_config(request):
 
 # Create your views here.
 def index(request):
+    context={
+        "all_products": Product.objects.all(),
+    }
     
-    return render(request, "index.html")
+    return render(request, "index.html", context)
 
 def login_page(request):
 
