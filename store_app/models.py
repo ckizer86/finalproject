@@ -32,9 +32,10 @@ class Address(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=255)
     desc = models.TextField()
-    amount = models.IntegerField(max_length=25)
-    pic = models.ImageField(upload_to='images/')
+    amount = models.FloatField(max_length=25)
+    pic = models.CharField(max_length=255, default="")
     likes = models.ManyToManyField(User, related_name="userlike")
+    stock = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     #categories

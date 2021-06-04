@@ -11,6 +11,7 @@ import bcrypt
 from time import gmtime, localtime, strftime
 from datetime import date, datetime
 from .models import *
+from .forms import *
 
 # payments/views.py
 
@@ -145,8 +146,13 @@ def category(request, id):
     return render(request, "category.html")
 
 def product(request, id):
+    productid = id
+    productinfo = Product.objects.get(id=productid)
+    context = {
+        "product": productinfo,
+    }
 
-    return render(request, "product.html")
+    return render(request, "product.html", context)
 
 def addcart(request):
 
@@ -211,8 +217,16 @@ def addprod(request):
     return render(request, "addproduct.html")
 
 def addingprod(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        desc = request.POST['desc']
+        amount = request.POST['amt']
+        pic = request.POST['pic']
+        stock = request.POST['stock']
 
-    return redirect('/admin')
+        product = Product.objects.create(name=name, desc=desc, amount=amount, pic=pic, stock=stock)
+        return redirect(f'/product/{product.id}')
+    return redirect('/admin/products')
 
 def storeinfo(request):
 

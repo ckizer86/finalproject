@@ -29,60 +29,49 @@
                 {% include 'adminsidebar.html' %}
             </div>
             <div class="col-9 main">
+                <h2>Add Product</h2>
                 <form action="/addingprod" method="post">
-
+                    {% csrf_token %}
                     <div class="row">
-                        <div class="col-4">
-                            <a class="btn btn-primary" href="#" role="button">Upload Image</a>
-                        </div>
-                        <div class="col-8">
+                        <div class="col-10">
                             <dl class="row">
                                 <dt class="col-sm-3">Product Name</dt>
                                 <dd class="col-sm-9">
-                                    <input type="text" class="form-control" placeholder="Product Name"></dd>
+                                    <input type="text" name="name" class="form-control"></dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-3">Product Image</dt>
+                                <dd class="col-sm-9">
+                                    <input name="pic" type="text" class="form-control" id="image" name="image">
+                                </dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3">Description</dt>
                                 <dd class="col-sm-9">
-                                    <textarea class="form-control">
-                            </textarea>
-                                </dd>
+                                    <textarea name="desc" class="form-control"></textarea>
                                 </dd>
 
                                 <dt class="col-sm-3">Stock</dt>
                                 <dd class="col-sm-9">
-                                    <input class="form-control" type="text" value="3">
+                                    <input name="stock" class="form-control" type="text">
                                 </dd>
 
 
+                                <dt class="col-sm-3">Amount</dt>
                                 <dd class="col-sm-9">
-
-                                    <div class="form-row">
-                                        <div class="form-group col-md-2">
-                                            <label for="quantity">Quantity</label>
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <input type="text" value="3" class="form-control">
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <label for="amount">Amount</label>
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <input type="text" class="form-control" value="9.99">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <button class="btn btn-primary" type="submit">Add</button>
-                                    </div>
+                                    <input name="amt" type="text" class="form-control">
+                                </dd>
+                                <div class="form-group col-md-2">
+                                    <button class="btn btn-primary" type="submit">Add</button>
+                                </div>
+                            </dl>
                         </div>
+                    </div>
                 </form>
 
-                </dd>
-                </dl>
-                </div>
+
             </div>
         </div>
-    </div>
     </div>
 
 </body>

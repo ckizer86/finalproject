@@ -41,3 +41,12 @@
 h2 {
     text-align: center;
 }
+
+.prodimage {
+    width: 100%;
+    display: block;
+}
+
+.prodimage img {
+    width: 100%;
+}
