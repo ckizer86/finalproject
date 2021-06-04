@@ -51,6 +51,22 @@
                                     <textarea name="desc" class="form-control"></textarea>
                                 </dd>
 
+                                <dt class="col-sm-3">Category</dt>
+                                <dd class="col-sm-9">
+
+
+                                    {% for category in all_categories %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="categories" type="checkbox" value="{{category.id}}" id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            {{category.name}}
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+
+
+                                </dd>
+
                                 <dt class="col-sm-3">Stock</dt>
                                 <dd class="col-sm-9">
                                     <input name="stock" class="form-control" type="text">
@@ -68,7 +84,22 @@
                         </div>
                     </div>
                 </form>
-
+                <form action="/addcat" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-10">
+                            <dl class="row">
+                                <dt class="col-sm-3"><label for="category" id="category">Add Category</label></dt>
+                                <dd class="col-sm-9">
+                                    <input type="text" class="form-control" name="name" id="category">
+                                </dd>
+                                <div class="form-group col-md-2">
+                                    <button class="btn btn-primary" type="submit">Add</button>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </form>
 
             </div>
         </div>

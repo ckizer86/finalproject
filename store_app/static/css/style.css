@@ -22,6 +22,10 @@
 .centerp {
     text-align: center;
     font-weight: bold;
+    margin-bottom: 2rem;
+    /* height: 3em;
+    max-height: 3em;
+    overflow: hidden;*/
 }
 
 .imgblock {
@@ -49,4 +53,14 @@ h2 {
 
 .prodimage img {
     width: 100%;
+}
+
+.prodcard {
+    height: 100%;
+}
+
+.prodbtn {
+    position: absolute;
+    bottom: 3%;
+    width: 85%;
 }

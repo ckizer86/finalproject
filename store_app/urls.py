@@ -36,4 +36,5 @@ urlpatterns = [
     path('admin/store', views.storeinfo),
     path('editstore', views.editstore),
     path('logout', views.logout),
+    path('addcat', views.addcat),
 ]

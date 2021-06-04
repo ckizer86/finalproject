@@ -1,0 +1,7 @@
+<div class="col-2 sidebar">
+    <ul class="list-group cat-group">
+        {% for category in all_categories %}
+        <li class="list-group-item"><a href="/cat/{{category.id}}">{{category.name}}</a></li>
+        {% endfor %}
+    </ul>
+</div>

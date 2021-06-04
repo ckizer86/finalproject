@@ -145,17 +145,31 @@ def register(request):
     return redirect('/register')
 
 def category(request, id):
+    cat = Category.objects.get(id=id)
+    context={
+        "catproducts": cat.product.all(),
+        "all_categories": Category.objects.all()
+    }
 
-    return render(request, "category.html")
+    return render(request, "category.html", context)
 
 def product(request, id):
     productid = id
     productinfo = Product.objects.get(id=productid)
     context = {
         "product": productinfo,
+        "all_categories": Category.objects.all()
     }
 
     return render(request, "product.html", context)
+
+def addcat(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        Category.objects.create(name=name)
+        return redirect('/admin/add_product')
+
+    return redirect('/admin')
 
 def addcart(request):
 
@@ -216,8 +230,10 @@ def products(request):
     return render(request, "products.html")
 
 def addprod(request):
-
-    return render(request, "addproduct.html")
+    context = {
+        'all_categories': Category.objects.all(),
+    }
+    return render(request, "addproduct.html", context)
 
 def addingprod(request):
     if request.method == "POST":
@@ -226,8 +242,13 @@ def addingprod(request):
         amount = request.POST['amt']
         pic = request.POST['pic']
         stock = request.POST['stock']
+        
 
         product = Product.objects.create(name=name, desc=desc, amount=amount, pic=pic, stock=stock)
+        categories = request.POST.getlist('categories')
+        for category in categories:
+            product.categories.add(category)
+
         return redirect(f'/product/{product.id}')
     return redirect('/admin/products')
 
