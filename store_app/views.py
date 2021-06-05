@@ -95,6 +95,7 @@ def index(request):
     context={
         "all_products": Product.objects.all(),
         "all_categories": Category.objects.all(),
+        "all_stores": Store.objects.all(),
     }
     
     return render(request, "index.html", context)
@@ -187,6 +188,11 @@ def likeditems(request):
     return render(request, "like.html")
 
 def dashboard(request):
+    userid = request.session["user_id"]
+    user = User.objects.get(id=userid)
+    if user.level == 3:
+
+        return redirect('/admin')
     if "user_id" not in request.session:
         return redirect ('/login')
 
@@ -305,11 +311,44 @@ def edittingprod(request):
 
 def storeinfo(request):
 
-    return render(request, "store.html")
+    context = {
+        "store": Store.objects.all()
+    }
+
+    return render(request, "store.html", context)
+
+def createstore(request):
+    if request.method == "POST":
+        name = request.POST['storename']
+        address1 = request.POST['address1']
+        address2 = request.POST['address2']
+        city = request.POST['city']
+        state = request.POST['state']
+        zip = request.POST['zip']
+        Store.objects.create(name=name, address_1=address1, address_2=address2, city=city, state=state, zip=zip)
+        return redirect('/admin/store')
+    return redirect('/')
 
 def editstore(request):
+    if request.method == "POST":
+        name = request.POST['storename']
+        address1 = request.POST['address1']
+        address2 = request.POST['address2']
+        city = request.POST['city']
+        state = request.POST['state']
+        zip = request.POST['zip']
+        storeid = request.POST['storeid']
+        store = Store.objects.get(id=storeid)
+        store.name = name
+        store.address_1 = address1
+        store.address_2 = address2
+        store.city = city
+        store.state = state
+        store.zip = zip
+        store.save()
+        return redirect('/admin/store')
 
-    return redirect('/admin/store')
+    return redirect('/')
 
 def logout(request):
     request.session.flush()
