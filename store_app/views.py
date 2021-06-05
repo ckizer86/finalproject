@@ -101,6 +101,8 @@ def index(request):
     return render(request, "index.html", context)
 
 def login_page(request):
+    if "user_id" in request.session:
+        return redirect ('/dashboard')
 
     return render(request, "login.html")
 
@@ -188,6 +190,8 @@ def likeditems(request):
     return render(request, "like.html")
 
 def dashboard(request):
+    if "user_id" not in request.session:
+        return redirect ('/login')
     userid = request.session["user_id"]
     user = User.objects.get(id=userid)
     if user.level == 3:
@@ -215,6 +219,13 @@ def vieworder(request, id):
     return render(request, "vieworder.html")
 
 def admindash(request):
+    if "user_id" not in request.session:
+        return redirect ('/login')
+    userid = request.session["user_id"]
+    user = User.objects.get(id=userid)
+    if user.level != 3:
+
+        return redirect('/dashboard')
 
     return render(request, "admindashboard.html")
 
@@ -235,6 +246,13 @@ def updatetracking(request):
     return redirect('/admin')
 
 def products(request):
+    if "user_id" not in request.session:
+        return redirect ('/login')
+    userid = request.session["user_id"]
+    user = User.objects.get(id=userid)
+    if user.level != 3:
+
+        return redirect('/dashboard')
 
     context = {
         "all_products": Product.objects.all(),
@@ -245,6 +263,13 @@ def products(request):
     return render(request, "products.html", context)
 
 def addprod(request):
+    if "user_id" not in request.session:
+        return redirect ('/login')
+    userid = request.session["user_id"]
+    user = User.objects.get(id=userid)
+    if user.level != 3:
+
+        return redirect('/dashboard')
     context = {
         'all_categories': Category.objects.all(),
     }
@@ -268,6 +293,13 @@ def addingprod(request):
     return redirect('/admin/products')
 
 def editprod(request, id):
+    if "user_id" not in request.session:
+        return redirect ('/login')
+    userid = request.session["user_id"]
+    user = User.objects.get(id=userid)
+    if user.level != 3:
+
+        return redirect('/dashboard')
     product = Product.objects.get(id=id)
     thesecats = product.categories.all()
     context = {
@@ -310,6 +342,13 @@ def edittingprod(request):
     return redirect('/')
 
 def storeinfo(request):
+    if "user_id" not in request.session:
+        return redirect ('/login')
+    userid = request.session["user_id"]
+    user = User.objects.get(id=userid)
+    if user.level != 3:
+
+        return redirect('/dashboard')
 
     context = {
         "store": Store.objects.all()
