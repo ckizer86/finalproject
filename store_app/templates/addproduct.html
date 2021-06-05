@@ -30,6 +30,8 @@
             </div>
             <div class="col-9 main">
                 <h2>Add Product</h2>
+
+
                 <form action="/addingprod" method="post">
                     {% csrf_token %}
                     <div class="row">
@@ -78,7 +80,7 @@
                                     <input name="amt" type="text" class="form-control">
                                 </dd>
                                 <div class="form-group col-md-2">
-                                    <button class="btn btn-primary" type="submit">Add</button>
+                                    <button class="btn btn-primary" type="submit">Add Product</button>
                                 </div>
                             </dl>
                         </div>
@@ -94,7 +96,7 @@
                                     <input type="text" class="form-control" name="name" id="category">
                                 </dd>
                                 <div class="form-group col-md-2">
-                                    <button class="btn btn-primary" type="submit">Add</button>
+                                    <button class="btn btn-primary" type="submit">Create Category</button>
                                 </div>
                             </dl>
                         </div>

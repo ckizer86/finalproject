@@ -31,10 +31,12 @@ urlpatterns = [
     path('admin/order/<int:id>', views.adminvieworder),
     path('updatetracking', views.updatetracking),
     path('admin/products', views.products),
+    path('admin/product/edit/<int:id>', views.editprod),
     path('admin/add_product', views.addprod),
     path('addingprod', views.addingprod),
     path('admin/store', views.storeinfo),
     path('editstore', views.editstore),
     path('logout', views.logout),
     path('addcat', views.addcat),
+    path('edittingprod', views.edittingprod),
 ]

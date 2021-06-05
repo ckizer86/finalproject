@@ -1,3 +1,4 @@
+from django.db.models import fields
 from django.shortcuts import render, redirect
 from django.http.response import JsonResponse, HttpResponse
 from django.views.generic import FormView
@@ -93,6 +94,7 @@ def stripe_config(request):
 def index(request):
     context={
         "all_products": Product.objects.all(),
+        "all_categories": Category.objects.all(),
     }
     
     return render(request, "index.html", context)
@@ -148,7 +150,8 @@ def category(request, id):
     cat = Category.objects.get(id=id)
     context={
         "catproducts": cat.product.all(),
-        "all_categories": Category.objects.all()
+        "all_categories": Category.objects.all(),
+        "category": cat,
     }
 
     return render(request, "category.html", context)
@@ -227,7 +230,13 @@ def updatetracking(request):
 
 def products(request):
 
-    return render(request, "products.html")
+    context = {
+        "all_products": Product.objects.all(),
+        "all_categories": Category.objects.all(),
+
+    }
+
+    return render(request, "products.html", context)
 
 def addprod(request):
     context = {
@@ -251,6 +260,48 @@ def addingprod(request):
 
         return redirect(f'/product/{product.id}')
     return redirect('/admin/products')
+
+def editprod(request, id):
+    product = Product.objects.get(id=id)
+    thesecats = product.categories.all()
+    context = {
+        "product": product,
+        "excats": Category.objects.exclude(product=id),
+        "currentcats": thesecats,
+    }
+
+    return render(request, "editproduct.html", context)
+
+def edittingprod(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        desc = request.POST['desc']
+        amount = request.POST['amt']
+        pic = request.POST['pic']
+        stock = request.POST['stock']
+        id = request.POST['pid']
+        all_categories = Category.objects.all()
+        product = Product.objects.get(id=id)
+        
+        for category in all_categories:
+            product.categories.remove(category)
+
+        categories = request.POST.getlist('categories')
+        
+        for newcategory in categories:
+            product.categories.add(newcategory)
+        
+        
+        product.name = name
+        product.desc = desc
+        product.amount = amount
+        product.pic = pic
+        product.stock = stock
+        product.save()
+
+
+        return redirect(f'/admin/product/edit/{id}')
+    return redirect('/')
 
 def storeinfo(request):
 
